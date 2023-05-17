@@ -7,10 +7,11 @@ def main():
 
     newFile = ''
 
-    alturaRetraccion = input('Altura de retracción: ')
-    tiempoDeBandeo = input('Tiempo de bandeo: ')
+    nombreArchivoNuevo = input('* Nombre del archivo nuevo: ')
+    alturaRetraccion = input('* Altura de retracción: ')
+    tiempoDeBandeo = input('* Tiempo de bandeo: ')
 
-    with open('./cortes-plasma.gcode', 'r') as f:
+    with open('./entrada.gcode', 'r') as f:
         for line in f:
             result1 = re.search(regex1, line)
             result2 = re.search(regex2, line)
@@ -30,12 +31,13 @@ def main():
                     newFile += f'M3 S1000 G4 P{tiempoDeBandeo}\n'
                 else:
                     newFile += line
+
+    with open('./entrada.gcode', 'w') as f:
+        f.write('')
     
-    with open('./cortes-plasma.gcode', 'w') as f:
+    with open(f'./{nombreArchivoNuevo}', 'x') as f:
         f.write(newFile)
         
 
 if __name__ == '__main__':
     main()
-
-    # ^Perfil.*
