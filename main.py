@@ -1,17 +1,19 @@
 import re
+import os
 
 def main():
     regex1 = '^Perfil.*'
-    regex2 = '^G1 Z0 F2000'
+    regex2 = '^.*G1 Z0 F.*'
     regex3 = '^.*M3 S1000'
 
     newFile = ''
+    directory = os.getcwd()
 
     nombreArchivoNuevo = input('* Nombre del archivo nuevo: ')
     alturaRetraccion = input('* Altura de retracción: ')
     tiempoDeBandeo = input('* Tiempo de bandeo: ')
 
-    with open('./entrada.gcode', 'r') as f:
+    with open(f'{directory}/entrada.gcode', 'r') as f:
         for line in f:
             result1 = re.search(regex1, line)
             result2 = re.search(regex2, line)
@@ -32,10 +34,10 @@ def main():
                 else:
                     newFile += line
 
-    with open('./entrada.gcode', 'w') as f:
+    with open(f'{directory}/entrada.gcode', 'w') as f:
         f.write('')
     
-    with open(f'./{nombreArchivoNuevo}', 'x') as f:
+    with open(f'{directory}/{nombreArchivoNuevo}', 'x') as f:
         f.write(newFile)
         
 
